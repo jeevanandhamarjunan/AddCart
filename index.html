@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="icons/icofont.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+ <header class="head-section">
+   <div class="container">
+     <div class="row justify-content-between align-items-center">
+      <div class="col-lg-10">
+       <div class="logo-img d-flex">
+        <h2 class="text fs-4 me-4">SHOPPING CART</h2>
+        <div class="search-header shadowcart">
+        <span><i class="icofont-search-1"></i><span>
+        <input type="search" placeholder="search" class="search">  
+        </div>           
+       </div>
+      </div>
+      <div class="col-lg-2">
+       <div class="head-bage position-relative">
+          <i class="icofont-cart text fs-3"></i><span id="badge" class="badge bg-secondary position-absolute">0</span>
+       </div>
+      </div>
+     </div>
+   </div>
+ </header>
+<!------------------main-section--------------->
+  <section class="main-section p-5">
+  <div class="container">
+  <div class="row">
+  <div class="col-lg-6">
+  <div id="productcart"></div>
+   </div>
+  <div class="col-lg-6">
+    <h2 class=" addcart text-center text">CART ITEMS</h2>
+  <div id="addcart"></div>
+  </div>
+  </div>
+  </div> 
+  </section>
+<script>
+let products=[
+       {
+         id:1,
+         name:"pen",
+         pic:'image/pen.jpg',
+         price:140,
+         qty:0
+         },
+       {
+         id:2,
+         name:"lock",
+         pic:'image/lock.jpeg',
+         price:250,
+         qty:0
+        },
+       {
+         id:3,
+         name:"pencil",
+         pic:'image/pencil.jpg',
+         price:100,
+         qty:0
+        },
+       {
+         id:4,
+         name:"shoe",
+         pic:'image/shoe.jpeg',
+         price:200,
+         qty:0
+        }
+];
+let prod=[       {
+         id:1,
+         price:140,
+         },
+       {
+         id:2,
+         price:250,
+        },
+       {
+         id:3,
+         price:100,
+        },
+       {
+         id:4,
+         price:200
+        }
+];
+ var cartItems=[],num=1; 
+products.forEach((obj)=>{
+
+    let mainDiv=document.getElementById("productcart");
+    let div=document.createElement("div");
+    let div1=document.createElement("div");
+    let div2=document.createElement("div");
+    let div3=document.createElement("div");
+    let div4=document.createElement("div");
+    let imgadd=document.createElement("img");
+    let pricRate=document.createElement("p");
+    let btn=document.createElement("button");
+        mainDiv.setAttribute("class","d-flex flex-wrap");
+        div.setAttribute("class","col-lg-6");
+        div1.setAttribute("class","row align-items-center m-2");
+        imgadd.setAttribute("class","d-block w-100");
+        btn.setAttribute("id",num+"btnadd"); 
+        btn.setAttribute("class","btndesign");        
+        pricRate.setAttribute("class","rate-itm m-0 pt-1 pb-1");
+        btn.addEventListener("click",action);    
+      imgadd.style.height="102px";
+      imgadd.src=obj.pic;
+      pricRate.innerText=obj.price;
+      btn.innerText="ADD CART";
+      div3.style.textAlign="center";
+      div2.style.textAlign="center";
+     div2.append(imgadd);
+     div3.append(pricRate,btn);
+     div1.append(div2,div3);
+     div.append(div1)
+     mainDiv.appendChild(div)
+     num++;   
+})
+
+ function action(){
+
+let mainDiv=document.getElementById("addcart");
+
+mainDiv.innerText="";
+      var newnum=1;
+function addEle(){
+ cartItems.forEach((obj)=>{
+    let div=document.createElement("div");        
+    let div1=document.createElement("div");        
+    let div2=document.createElement("div");
+    let div3=document.createElement("div");
+    let div4=document.createElement("div");
+    let imgadd=document.createElement("img");
+    let btn1=document.createElement("button");
+    let pricRate=document.createElement("span");
+    let btn2=document.createElement("button"); 
+        mainDiv.setAttribute("class","d-flex flex-wrap"); 
+        div.setAttribute("class","col-lg-6");
+         div1.setAttribute("class","row align-items-center m-2");
+         btn1.setAttribute("id",newnum+"incbtn");
+         div1.setAttribute("id",newnum);
+         btn2.setAttribute("id",newnum+"decbtn");
+         pricRate.setAttribute("id",newnum+"span");
+         pricRate.setAttribute("class","rate-itm m-0 pt-1 pb-1");
+         imgadd.setAttribute("class","d-block w-100");
+         btn1.setAttribute("class","btndesign m-2");
+         btn2.setAttribute("class","btndesign m-2");
+         btn1.addEventListener("click",incval); 
+         btn2.addEventListener("click",decval);
+      imgadd.src=obj.pic;
+      imgadd.style.height="102px";
+      pricRate.innerText=obj.price;
+      btn1.innerText="+";
+      btn2.innerText="-";
+      div3.style.textAlign="center";
+      div2.style.textAlign="center"; 
+     div2.append(imgadd);
+     div3.append(btn2,pricRate,btn1);
+     div1.append(div2,div3);
+     div.append(div1)
+     mainDiv.appendChild(div)   
+     newnum++; 
+})
+}
+              let getid=parseInt(this.id);
+   const valu=prod[getid-1]["price"]
+         var id=products[getid-1]["id"];
+            //console.log(id)  
+
+
+            console.log("valu"+valu)
+     let items=cartItems.find(e => e.id===id);
+         if(items){
+           cartItems.map((item)=>{
+              if(item.id===id){           
+                return{
+                   ...item,
+                   qty:item.qty+=1,    
+                   price:item.price+=valu
+               }
+ }
+
+})   
+ console.log(cartItems);           
+}     
+else{
+    let addItem=products.find(e=>e.id==id);
+      console.log(id);
+     addItem.qty+=1; 
+     cartItems.push(addItem);
+     console.log(cartItems);
+}
+ addEle();  
+     function incval(){
+         console.log(this.id);
+         let incrementvalue=parseInt(this.id);
+            let incspan=document.getElementById(incrementvalue+"span");
+                let div=document.getElementById(incrementvalue);
+        cartItems.map((item)=>{
+              if(item.id===id){                     
+                  incspan.innerText=item.price;       
+                return{
+                   ...item,
+                   qty:item.qty+=1,    
+                   price:item.price+=valu
+               }
+ }
+})    
+      }
+      function decval(){
+         console.log(this.id);
+         let decrementvalue=parseInt(this.id);
+            let decspan=document.getElementById(decrementvalue+"span");
+                let div=document.getElementById(decrementvalue);
+                          cartItems.map((item)=>{
+              if(item.id===id){
+                  decspan.innerText=item.price;
+                  let p=item.qty
+                 if(p==0){
+                    cartItems.splice(id-1,1)
+                     div.innerText="";
+}
+                return{
+                  ...item,
+                  qty:item.qty-=1,    
+                  price:item.price-=valu
+              }
+}
+})
+      }
+
+ let badgeDis=document.getElementById("badge");
+ function crt(){
+     badgeDis.innerText=cartItems.length;
+ }
+ crt();
+};
+
+
+
+
+
+</script>
+</body>
+</html>

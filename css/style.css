@@ -1,0 +1,35 @@
+.head-section{
+    background-color: yellow;
+    color: #038bff;
+    padding: 20px 0px;
+}
+.logo-img >h2{
+ font-family:  ui-monospace;
+ margin:0;
+}
+.badge{
+ bottom:10px;
+}
+.search-header{
+    border: solid 1px #ccc;
+    padding: 3px 8px;
+    background-color: white;
+    box-shadow: 1px 0px 2px;
+}
+
+.search,.search:focus-visible{
+ all:unset;
+}
+body{
+ background-color: cadetblue;
+}
+.btndesign{
+    color: #959541;
+    border-color: aliceblue;
+}
+.addcart{
+     font-family:  ui-monospace;
+}
+.text{
+     text-shadow:1px 2px 2px #000;
+}
